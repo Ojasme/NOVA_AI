@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, FileText, Image } from "lucide-react";
 
 import type { ChatMessage } from "@/hooks/use-nova-chat";
 import { MarkdownMessage } from "./markdown-message";
@@ -28,6 +28,23 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
     >
       {isUser ? (
         <div className="max-w-[85%] rounded-3xl rounded-br-lg bg-primary px-5 py-3 text-[0.95rem] leading-relaxed whitespace-pre-wrap text-primary-foreground shadow-glow sm:max-w-[70%]">
+          {message.attachments && message.attachments.length > 0 && (
+            <div className="mb-2 flex flex-wrap gap-1.5">
+              {message.attachments.map((attachment) => (
+                <span
+                  key={`${attachment.name}-${attachment.size}`}
+                  className="inline-flex max-w-full items-center gap-1.5 rounded-lg bg-primary-foreground/15 px-2 py-1 text-xs"
+                >
+                  {attachment.mimeType.startsWith("image/") ? (
+                    <Image className="h-3 w-3 shrink-0" />
+                  ) : (
+                    <FileText className="h-3 w-3 shrink-0" />
+                  )}
+                  <span className="max-w-40 truncate">{attachment.name}</span>
+                </span>
+              ))}
+            </div>
+          )}
           {message.content}
         </div>
       ) : (

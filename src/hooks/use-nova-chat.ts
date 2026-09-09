@@ -7,6 +7,14 @@ export type ChatMessage = {
   id: string;
   role: "user" | "assistant";
   content: string;
+  attachments?: ChatAttachment[];
+};
+
+export type ChatAttachment = {
+  name: string;
+  mimeType: string;
+  data: string;
+  size: number;
 };
 
 const newId = () =>
@@ -21,11 +29,16 @@ export function useNovaChat() {
   const [error, setError] = useState<string | null>(null);
 
   const sendMessage = useCallback(
-    async (text: string) => {
+    async (text: string, attachments: ChatAttachment[] = []) => {
       const trimmed = text.trim();
-      if (!trimmed || isLoading) return;
+      if ((!trimmed && attachments.length === 0) || isLoading) return;
 
-      const userMessage: ChatMessage = { id: newId(), role: "user", content: trimmed };
+      const userMessage: ChatMessage = {
+        id: newId(),
+        role: "user",
+        content: trimmed || "Please review the attached files.",
+        ...(attachments.length > 0 ? { attachments } : {}),
+      };
       const history = [...messages, userMessage];
 
       setMessages(history);
@@ -34,7 +47,13 @@ export function useNovaChat() {
 
       try {
         const result = await send({
-          data: { messages: history.map(({ role, content }) => ({ role, content })) },
+          data: {
+            messages: history.map(({ role, content, attachments: messageAttachments }) => ({
+              role,
+              content,
+              ...(messageAttachments ? { attachments: messageAttachments } : {}),
+            })),
+          },
         });
 
         if (result.ok) {

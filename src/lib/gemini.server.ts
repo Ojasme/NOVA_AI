@@ -10,7 +10,18 @@ const SYSTEM_INSTRUCTION =
   "You are Nova, a thoughtful and concise AI assistant. " +
   "Answer clearly, use markdown for structure, and use fenced code blocks with a language tag for code.";
 
-export type ChatTurn = { role: "user" | "assistant"; content: string };
+export type ChatAttachment = {
+  name: string;
+  mimeType: string;
+  data: string;
+  size: number;
+};
+
+export type ChatTurn = {
+  role: "user" | "assistant";
+  content: string;
+  attachments?: ChatAttachment[];
+};
 
 export class GeminiError extends Error {
   status: number;
@@ -24,17 +35,19 @@ export class GeminiError extends Error {
 export async function generateReply(history: ChatTurn[]): Promise<string> {
   const apiKey = process.env["GEMINI_API_KEY"];
   if (!apiKey) {
-    throw new GeminiError(
-      "The AI key is not configured yet. Add GEMINI_API_KEY to continue.",
-      500,
-    );
+    throw new GeminiError("The AI key is not configured yet. Add GEMINI_API_KEY to continue.", 500);
   }
 
   const body = {
     systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
     contents: history.map((turn) => ({
       role: turn.role === "assistant" ? "model" : "user",
-      parts: [{ text: turn.content }],
+      parts: [
+        { text: turn.content },
+        ...(turn.attachments ?? []).map((attachment) => ({
+          inlineData: { mimeType: attachment.mimeType, data: attachment.data },
+        })),
+      ],
     })),
     generationConfig: { temperature: 0.7, maxOutputTokens: 2048 },
   };
