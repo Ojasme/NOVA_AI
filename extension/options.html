@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova AI Extension Settings</title>
+    <link rel="stylesheet" href="extension.css" />
+    <script src="options.js" defer></script>
+  </head>
+  <body class="options-page">
+    <main class="options">
+      <div class="brand-mark" aria-hidden="true">N</div>
+      <h1>Connect Nova AI</h1>
+      <p>Enter the HTTPS address where your Nova chat is deployed.</p>
+      <form id="settings-form">
+        <label for="nova-url">Nova app URL</label>
+        <input id="nova-url" name="nova-url" type="url" placeholder="https://your-app.vercel.app" required />
+        <button class="primary-button" type="submit">Save address</button>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </form>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #202521;
+  background: #f5f7f3;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 260px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.panel,
+.options {
+  display: flex;
+  width: min(100% - 40px, 440px);
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-inline: auto;
+  padding-block: 32px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 42px;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 13px;
+  background: #dce8da;
+  color: #315d49;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 22px 0 8px;
+  font-size: 25px;
+  line-height: 1.15;
+}
+
+p {
+  margin: 0;
+  color: #59645d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.primary-button {
+  min-height: 42px;
+  margin-top: 22px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 7px;
+  background: #315d49;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background: #264a39;
+}
+
+#chat {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  border: 0;
+  background: #fff;
+}
+
+#chat[hidden],
+.panel[hidden] {
+  display: none;
+}
+
+.options-page {
+  background:
+    radial-gradient(ellipse at 8% 8%, #e1ebde 0, transparent 42%),
+    #f5f7f3;
+}
+
+.options {
+  justify-content: flex-start;
+  padding-top: 12vh;
+}
+
+form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+label {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #cbd4cb;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #83a88c;
+  outline-offset: 2px;
+}
+
+.status {
+  min-height: 22px;
+  margin-top: 12px;
+  font-size: 13px;
+}

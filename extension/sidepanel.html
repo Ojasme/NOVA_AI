@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova AI Assistant</title>
+    <link rel="stylesheet" href="extension.css" />
+    <script src="sidepanel.js" defer></script>
+  </head>
+  <body>
+    <main class="panel" id="setup" hidden>
+      <div class="brand-mark" aria-hidden="true">N</div>
+      <h1>Nova AI</h1>
+      <p>Connect your deployed Nova chat to start asking questions from Chrome.</p>
+      <button class="primary-button" id="open-options" type="button">Set up Nova</button>
+    </main>
+    <iframe id="chat" title="Nova AI chat" hidden allow="clipboard-read; clipboard-write"></iframe>
+  </body>
+</html>
