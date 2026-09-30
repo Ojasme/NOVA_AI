@@ -5,6 +5,9 @@ receive replies from Google Gemini, and read responses rendered with Markdown an
 code. Conversations are kept in memory for the current session only: there are no accounts, database
 records, or stored chat histories.
 
+See [the runtime architecture](docs/runtime-architecture.md) for the component flow, external
+dependencies, deployment boundaries, and trust boundaries.
+
 ## Important: create your own API key
 
 The project needs a Google Gemini API key to generate replies. Each user or deployment owner must
